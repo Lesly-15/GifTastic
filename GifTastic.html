@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>GifTastic!</title>
+</head>
+
+<body>
+
+    <h1> GifTastic!</h1>
+
+    <hr>
+
+    <p> Click on the buttons to find the gifs of all animals, add animals to our list if we missed anyone </p>
+
+    <!-- Buttons already added -->
+
+    <div class=container id="buttonsContainer">
+
+        <button>Dog</button>
+        <button>Cat</button>
+        <button>Bird</button>
+        <button>Elephant</button>
+        <button>Tiger</button>
+        <button>Lion</button>
+        <button>Elephant</button>
+        <button>Racoon</button>
+        <button>Horse</button>
+        <button>Cow</button>
+        <button>Chicken</button>
+        <button>Pig</button>
+        <button>Dinosaur</button>
+
+    </div>
+
+    <br>
+
+    <!-- input & search buttons -->
+
+    <div class=container>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Add your search here</span>
+            </div>
+            <input type="text" class="form-control" id="userInput">
+        </div>
+        <button> Search </button>
+    </div>
+
+    <!-- Gifs will appear here -->
+
+    <div class=container id="gifShowsHere">
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        // this function belongs to the buttons that are already in the site
+
+        $("button").on("click", function() {
+
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=";
+       
+        $.ajax({
+        url: queryURL,
+        method: "GET"
+        });
+
+        });
+
+        // Function adding the button related to the user search
+
+        $("button").on("click", function() {
+
+        // 1. get the text the user typed
+
+        var userSearchInput = ("#userInput").val().trim();
+            console.log (userInput);
+
+        // 2. create a new button and add it to the buttons section
+            var newButtons = $("<button>")
+            $("#buttonsContainer").append(newButtons);
+
+        });
+
+    </script>
+
+
+
+
+
+</body>
+
+</html>

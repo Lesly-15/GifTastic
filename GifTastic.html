@@ -23,19 +23,19 @@
 
     <div class=container id="buttonsContainer">
 
-        <button>Dog</button>
-        <button>Cat</button>
-        <button>Bird</button>
-        <button>Elephant</button>
-        <button>Tiger</button>
-        <button>Lion</button>
-        <button>Elephant</button>
-        <button>Racoon</button>
-        <button>Horse</button>
-        <button>Cow</button>
-        <button>Chicken</button>
-        <button>Pig</button>
-        <button>Dinosaur</button>
+        <button clickAnimals="Dog"> Dog </button>
+        <button clickAnimals="Cat"> Cat </button>
+        <button clickAnimals="Bird"> Bird </button>
+        <button clickAnimals="Elephant"> Elephant </button>
+        <button clickAnimals="Tiger"> Tiger </button>
+        <button clickAnimals="Lion"> Lion </button>
+        <button clickAnimals="Elephant"> Elephant </button>
+        <button clickAnimals="Racoon"> Racoon </button>
+        <button clickAnimals="Horse"> Horse </button>
+        <button clickAnimals="Cow"> Cow </button>
+        <button clickAnimals="Chicken"> Chicken </button>
+        <button clickAnimals="Pig"> Pig </button>
+        <button clickAnimals="Dinosaur"> Dinosaur </button>
 
     </div>
 
@@ -50,7 +50,7 @@
             </div>
             <input type="text" class="form-control" id="userInput">
         </div>
-        <button> Search </button>
+        <button id="searchBtn"> Search </button>
     </div>
 
     <!-- Gifs will appear here -->
@@ -64,29 +64,53 @@
 
         // this function belongs to the buttons that are already in the site
 
-        $("button").on("click", function() {
+        $("button").on("click", function () {
 
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=";
-       
-        $.ajax({
-        url: queryURL,
-        method: "GET"
-        });
+            var animal = $(this).attr("clickAnimals");
 
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9";
+
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            })
+
+                .then(function (response) {
+
+                    console.log(response);
+                    var animalGiphy = response.data;
+
+                    // Creating an image tag
+                    var animalGif = $("<img>");
+
+                    // Giving the image tag an src attribute of a proprty pulled off the
+                    // result item
+                    animalGif.attr("src", animalGiphy.fixed_height.url);
+
+
+                    $("#gifShowsHere").append(animalGiphy);
+
+                })
         });
 
         // Function adding the button related to the user search
 
-        $("button").on("click", function() {
+        $("#searchBtn").on("click", function () {
 
-        // 1. get the text the user typed
+            // 1. get whatever the user typed in the input            
+            
+            var userSearch = $("#userInput").val().trim();
+            console.log(userSearch);
+            
+            // 2. create a new button and add it to the buttons section
 
-        var userSearchInput = ("#userInput").val().trim();
-            console.log (userInput);
-
-        // 2. create a new button and add it to the buttons section
-            var newButtons = $("<button>")
+            var newButtons = $("<button>");
+                newButtons.text (userSearch);
             $("#buttonsContainer").append(newButtons);
+
+            
+
+
 
         });
 
